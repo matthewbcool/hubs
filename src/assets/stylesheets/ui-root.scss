@@ -98,12 +98,12 @@ body.vr-mode {
 }
 
 :local(.in-room-favorite-button) {
+  display: none;
   position: absolute;
   z-index: 1;
   bottom: 0;
   left: 16px;
   margin: 22px 0;
-  padding: 0;
   background-color: var(--overlay-button-background-color);
   display: flex;
   align-items: center;
@@ -117,8 +117,6 @@ body.vr-mode {
   -webkit-appearance: none;
   outline-style: none;
   border: 0;
-  width: 43px;
-  height: 43px;
   color: var(--unfavorited-color);
 
   @media (max-width: 1080px) {
@@ -152,6 +150,7 @@ body.vr-mode {
     height: 43px;
     min-width: auto;
     font-size: 1.2em;
+    display: none;
   }
 
   @media (max-width: 1080px) {
@@ -206,6 +205,7 @@ body.vr-mode {
   }
 }
 :local(.object-list-button) {
+  display: none;
   @extend %button-with-count;
 
   @media(min-width: 501px) {
@@ -232,6 +232,7 @@ body.vr-mode {
 }
 
 :local(.corner-button) {
+  display: none;
   @extend %unselectable;
   text-align: right;
   position: absolute;

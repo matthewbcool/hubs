@@ -77,7 +77,9 @@ import { faQuestion } from "@fortawesome/free-solid-svg-icons/faQuestion";
 import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import BallonBtn from "../assets/images/rocket-ballon-btn.png";
+import BallonBtnHov from "../assets/images/rocket-ballon-btn-hover.png";
+import SparklePop from "../assets/sfx/spark-pop.mp3";
 import qsTruthy from "../utils/qs_truthy";
 import { CAMERA_MODE_INSPECT } from "../systems/camera-system";
 const avatarEditorDebug = qsTruthy("avatarEditorDebug");
@@ -210,7 +212,8 @@ class UIRoot extends Component {
     objectInfo: null,
     objectSrc: "",
     isObjectListExpanded: false,
-    isPresenceListExpanded: false
+    isPresenceListExpanded: false,
+    ballonBtn: false
   };
 
   constructor(props) {
@@ -1072,7 +1075,7 @@ class UIRoot extends Component {
             <span>{this.props.hub.name}</span>
           )}
 
-          <button
+          {/* <button
             aria-label="Toggle Favorited"
             onClick={() => this.toggleFavorited()}
             className={classNames({
@@ -1084,7 +1087,7 @@ class UIRoot extends Component {
             <i title="Favorite">
               <FontAwesomeIcon icon={faStar} />
             </i>
-          </button>
+          </button> */}
         </div>
 
         <div className={entryStyles.roomSubtitle}>
@@ -2151,18 +2154,60 @@ class UIRoot extends Component {
                   )}
 
                 {!streaming && (
-                  <button
-                    aria-label="Toggle Favorited"
-                    onClick={() => this.toggleFavorited()}
-                    className={classNames({
-                      [entryStyles.favorited]: this.isFavorited(),
-                      [styles.inRoomFavoriteButton]: true
-                    })}
+                  <div
+                    onMouseEnter={() => {
+                      this.setState({ ballonBtn: true });
+                    }}
+                    onMouseLeave={() => {
+                      this.setState({ ballonBtn: false });
+                    }}
                   >
-                    <i title="Favorite">
-                      <FontAwesomeIcon icon={faStar} />
-                    </i>
-                  </button>
+                    {this.state.ballonBtn ? (
+                      <button
+                        onClick={() => {
+                          let el = document.createElement("a-entity");
+                          el.setAttribute("media-loader", {
+                            src:
+                              "https://github.com/matthewbcool/rc3-hubs-assembly-assets/blob/main/glb/inflatable-rocket.glb?raw=true",
+                            fitToBox: true,
+                            resolve: true
+                          });
+                          el.setAttribute("networked", { template: "#interactable-media" });
+                          /* scene.systems["hubs-systems"].soundEffectsSystem.playSoundOneShot(SparklePop); */
+                          let getRandomPos = () => Math.random() * Math.floor(2);
+                          let floatPos = { x: getRandomPos(), y: getRandomPos() + 0.5, z: getRandomPos() };
+                          el.object3D.position.copy(floatPos);
+                          el.object3D.matrixNeedsUpdate = true;
+
+                          el.setAttribute("body-helper", {
+                            type: "dynamic",
+                            mass: 10,
+                            gravity: { x: 0, y: -2, z: 0 },
+                            angularDamping: 1,
+                            linearDamping: 0.1,
+                            linearSleepingThreshold: 1.6,
+                            angularSleepingThreshold: 2.5
+                          });
+                          console.log(el);
+                          AFRAME.scenes[0].appendChild(el);
+                        }}
+                        className={classNames({
+                          [styles.inRoomFavoriteButton]: true
+                        })}
+                      >
+                        <img src={BallonBtnHov} />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => console.log("add ")}
+                        className={classNames({
+                          [styles.inRoomFavoriteButton]: true
+                        })}
+                      >
+                        <img src={BallonBtn} />
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             )}

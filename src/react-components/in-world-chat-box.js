@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "../assets/stylesheets/message-entry.scss";
@@ -43,7 +43,8 @@ class InWorldChatBox extends Component {
     const discordSnippet = this.props.discordBridges.map(ch => "#" + ch).join(", ");
 
     return (
-      <form onSubmit={this.sendMessage}>
+      <Fragment> 
+      {/* <form onSubmit={this.sendMessage}>
         <div
           className={classNames({ [styles.messageEntryInRoom]: true, [styles.messageEntryOnMobile]: isMobile })}
           style={{ height: pendingMessageFieldHeight }}
@@ -141,7 +142,7 @@ class InWorldChatBox extends Component {
             src={sendMessageIcon}
           />
         </div>
-      </form>
+      </form> */}</Fragment>
     );
   }
 }

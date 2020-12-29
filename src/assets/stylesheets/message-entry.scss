@@ -1,6 +1,7 @@
 @import 'shared';
 
 :local(.message-entry) {
+  display: none;
   position: relative;
   margin: 10px 24px 24px 24px;
   height: 48px;
