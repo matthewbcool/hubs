@@ -357,6 +357,14 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
+		"projection.png":
+		{
+			"frame": {"x":886,"y":810,"w":64,"h":64},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+			"sourceSize": {"w":64,"h":64}
+		},
 		"scale-action.png":
 		{
 			"frame": {"x":882,"y":248,"w":64,"h":64},
